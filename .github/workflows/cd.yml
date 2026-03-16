@@ -22,3 +22,14 @@ jobs:
 
       - name: Build app
         run: npm run build
+
+      - name: Authenticate to GCP
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          service_account_key: ${{ secrets.GCP_CREDENTIALS }}
+          project_id: qwiklabs-gcp-01-17a428d45b63
+          export_default_credentials: true
+
+      - name: Build and Push Docker Image
+        run: |
+          gcloud builds submit --tag europe-west4-docker.pkg.dev/qwiklabs-gcp-01-17a428d45b63/notely-ar-repo/notely:latest .
