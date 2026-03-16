@@ -36,3 +36,7 @@ jobs:
       - name: Build and Push Docker Image
         run: |
           gcloud builds submit --tag europe-west4-docker.pkg.dev/qwiklabs-gcp-01-17a428d45b63/notely-ar-repo/notely:latest .
+
+      - name: Deploy to Cloud Run
+        run: |
+          gcloud run deploy notely --image europe-west4-docker.pkg.dev/qwiklabs-gcp-01-17a428d45b63/notely-ar-repo/notely:latest --region europe-west4 --allow-unauthenticated --project qwiklabs-gcp-01-17a428d45b63 --max-instances=4
